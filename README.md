@@ -1,0 +1,356 @@
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mario Cart – O Carrinho que Pensa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #00e676;
+      --teal: #00bcd4;
+      --dark: #0a0f1e;
+      --card: #111827;
+      --text: #e0f7fa;
+    }
+
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ── PARTICLES BG ── */
+    #particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .dot {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.15;
+      animation: float linear infinite;
+    }
+    @keyframes float {
+      0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+      10%  { opacity: 0.2; }
+      90%  { opacity: 0.15; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(10,15,30,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,230,118,0.2);
+    }
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .logo-img {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 2px solid var(--green);
+      box-shadow: 0 0 14px var(--green);
+    }
+    .brand {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      background: linear-gradient(90deg, var(--green), var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.08em;
+    }
+    .tagline-header {
+      font-size: 0.75rem;
+      color: #80cbc4;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .badge {
+      background: linear-gradient(135deg, var(--green), var(--teal));
+      color: #0a0f1e;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 5;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+    }
+    .hero-logo {
+      width: 160px;
+      height: 160px;
+      border-radius: 32px;
+      object-fit: cover;
+      border: 3px solid var(--green);
+      box-shadow: 0 0 40px rgba(0,230,118,0.4), 0 0 80px rgba(0,188,212,0.2);
+      margin-bottom: 2.5rem;
+      animation: pulse 3s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 40px rgba(0,230,118,0.4), 0 0 80px rgba(0,188,212,0.2); }
+      50%       { box-shadow: 0 0 60px rgba(0,230,118,0.7), 0 0 120px rgba(0,188,212,0.4); }
+    }
+    .hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      font-weight: 900;
+      background: linear-gradient(90deg, var(--green), var(--teal), #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .slogan {
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: #80deea;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+    }
+    .slogan strong {
+      color: var(--green);
+      font-weight: 600;
+    }
+    .hero-phrase {
+      font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+      font-weight: 600;
+      color: #fff;
+      max-width: 700px;
+      line-height: 1.6;
+      background: rgba(0,230,118,0.07);
+      border: 1px solid rgba(0,230,118,0.25);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .hero-phrase::before {
+      content: '"';
+      font-size: 4rem;
+      color: var(--green);
+      opacity: 0.3;
+      position: absolute;
+      top: -10px;
+      left: 16px;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    /* ── CTA BUTTON ── */
+    .cta {
+      display: inline-block;
+      padding: 1rem 2.8rem;
+      background: linear-gradient(135deg, var(--green), var(--teal));
+      color: #0a0f1e;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      border-radius: 999px;
+      text-decoration: none;
+      text-transform: uppercase;
+      box-shadow: 0 4px 24px rgba(0,230,118,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cta:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 8px 36px rgba(0,230,118,0.6);
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 3rem 2rem 4rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(0,230,118,0.15);
+      border-radius: 20px;
+      padding: 2rem 1.8rem;
+      width: 260px;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: var(--green);
+    }
+    .card-icon {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+    .card h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.95rem;
+      color: var(--green);
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.05em;
+    }
+    .card p {
+      font-size: 0.88rem;
+      color: #90a4ae;
+      line-height: 1.6;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      padding: 1rem 2rem 3rem;
+    }
+    .divider p {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: #b2dfdb;
+      font-style: italic;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+    .divider span {
+      color: var(--green);
+      font-weight: 600;
+      font-style: normal;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 10;
+      background: rgba(0,0,0,0.5);
+      border-top: 1px solid rgba(0,230,118,0.15);
+      text-align: center;
+      padding: 1.4rem 2rem;
+      font-size: 0.8rem;
+      color: #546e7a;
+      letter-spacing: 0.04em;
+    }
+    footer a { color: var(--teal); text-decoration: none; }
+    footer a:hover { color: var(--green); }
+  </style>
+</head>
+<body>
+
+  <!-- Particles -->
+  <div id="particles"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-wrap">
+      <img class="logo-img" src="https://cdn.abacus.ai/images/fd9ca794-b447-43fb-b128-f8f9e6850054.png" alt="Mario Cart Logo"/>
+      <div>
+        <div class="brand">Mario Cart</div>
+        <div class="tagline-header">Autonomous Smart Cart</div>
+      </div>
+    </div>
+    <div class="badge">Em breve</div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <img class="hero-logo" src="https://cdn.abacus.ai/images/fd9ca794-b447-43fb-b128-f8f9e6850054.png" alt="Mario Cart"/>
+    <h1>Mario Cart</h1>
+    <p class="slogan">Ele sabe onde está. Ele sabe onde deve estar.<br/><strong>E ele vai lá sozinho.</strong></p>
+    <div class="hero-phrase">
+      Imagine um mundo onde as coisas voltam para o lugar certo por conta própria.<br/>
+      Esse mundo está mais perto do que você imagina.
+    </div>
+    <a href="#" class="cta">Quero saber mais</a>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="card">
+      <div class="card-icon">🧠</div>
+      <h3>Inteligência Própria</h3>
+      <p>Sabe exatamente onde está e para onde deve ir, sem precisar de ninguém.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📍</div>
+      <h3>Retorno Automático</h3>
+      <p>Quando fora do lugar, ele acorda e volta para sua base sozinho.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h3>Sempre Disponível</h3>
+      <p>Nunca mais procure um carrinho. Ele já está onde você precisa.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔒</div>
+      <h3>Seguro & Confiável</h3>
+      <p>Tecnologia de ponta para garantir operação segura em qualquer ambiente.</p>
+    </div>
+  </section>
+
+  <!-- Divider phrase -->
+  <div class="divider">
+    <p>O futuro do varejo começa com um pequeno movimento.<br/>
+    <span>Mario Cart</span> — porque até os carrinhos merecem ser inteligentes.</p>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    Todos os direitos reservados.  | 
+    <a href="mailto:ed.p@terra.com.br">ed.p@terra.com.br</a>  | 
+    +55 47 99102-0000  |  Brasil  |  2026
+  </footer>
+
+  <script>
+    // Generate floating particles
+    const container = document.getElementById('particles');
+    const colors = ['#00e676','#00bcd4','#80deea','#ffffff'];
+    for (let i = 0; i < 40; i++) {
+      const d = document.createElement('div');
+      d.className = 'dot';
+      const size = Math.random() * 8 + 3;
+      d.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random()*100}%;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        animation-duration:${Math.random()*15+8}s;
+        animation-delay:${Math.random()*10}s;
+      `;
+      container.appendChild(d);
+    }
+  </script>
+</body>
+</html>
